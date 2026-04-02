@@ -1,0 +1,43 @@
+# 📦 Supply Chain Automation Toolkit
+
+A collection of automation tools designed to streamline repetitive workflows in supply chain and logistics operations.
+
+## 🚀 Tools Included
+
+### 1. Outlook Email Automation (AutoHotkey)
+Automates Outlook email drafting, reply workflows, and inbox navigation.
+
+**Tech:** AutoHotkey  
+**Impact:** Reduced manual email workload and improved response consistency  
+
+---
+
+### 2. Vessel ETA Tracking Automation
+Generates carrier tracking URLs from container numbers using Python.
+
+**Tech:** Python, Pandas  
+**Features:**
+- Multi-carrier support (COSCO, ONE, CMA CGM, OOCL, Evergreen)
+- Excel/CSV auto parsing
+- Direct tracking link generation
+
+**Impact:** Eliminated manual tracking lookup and improved operational efficiency  
+
+---
+
+### 3. Candata Import Automation
+Automates import data processing for logistics and customs workflows.
+
+**Tech:** Python, Pandas  
+**Features:**
+- Invoice data standardization
+- Multi-format data processing
+- Reduced manual input errors
+
+**Impact:** Improved data accuracy and reduced processing time  
+
+---
+
+## 🧠 Key Value
+
+This toolkit demonstrates how automation can optimize real-world logistics operations by reducing manual work, improving data accuracy, and increasing efficiency.
