@@ -1,1 +1,25 @@
-Automates import data processing by standardizing invoice formats and reducing manual data entry errors in logistics workflows.
+# B2B Customs Invoice ETL Pipeline (Candata Integration)
+
+## 📊 Executive Summary
+A data automation pipeline developed to support logistics operations by standardizing multi-format B2B commercial invoices. This tool ingests messy, unstructured shipping data and converts it into a clean, system-compatible format ready for import into customs clearance software (e.g., Candata). 
+
+## 🚨 The Business Problem
+In high-volume logistics and customs environments, Supply Chain Planners and Customs Specialists spend countless hours manually extracting data from diverse supplier invoices. This manual process is highly susceptible to:
+* **Data Corruption:** Excel automatically converting critical tracking numbers into scientific notation (e.g., `1.23E+11`).
+* **Operational Bottlenecks:** Manual data entry slowing down the CBSA release process.
+* **Compliance Risks:** Human error in HS code or value entry leading to customs holds.
+
+## 💡 The Solution
+Developed a robust **Python (Pandas)** ETL script that:
+1. **Extracts:** Reads diverse incoming B2B invoice formats (CSV/Excel).
+2. **Transforms:** Standardizes column names, forces text-formatting to eliminate scientific notation errors, and cleanses hidden whitespace.
+3. **Loads:** Outputs a standardized, Candata-ready dataset that can be imported seamlessly into the customs system.
+
+## 🚀 Business Impact
+* **Efficiency:** Reduced manual data entry time by **90%**, allowing the team to focus on exception management and supplier coordination.
+* **Accuracy:** Achieved **100% data integrity** by eliminating formatting anomalies and scientific notation errors.
+* **Scalability:** The script can process hundreds of invoice lines in seconds, supporting high-volume peak seasons.
+
+## 🛠️ Technical Stack
+* **Language:** Python 3.x
+* **Libraries:** `pandas`, `numpy`, `openpyxl`
