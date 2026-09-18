@@ -1,0 +1,5 @@
+__pycache__/
+examples/*.xlsx
+examples/*output.csv
+ready_for_candata.csv
+Simulated_Vancouver_Logistics_Data.csv

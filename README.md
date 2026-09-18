@@ -1,32 +1,38 @@
-# 📦 Supply Chain Operations & Data Automation Toolkit
+# Supply-chain workflow examples
 
-## 📌 Executive Summary
-A comprehensive suite of automation tools developed to bridge the gap between traditional logistics operations and data-driven efficiency. This toolkit is designed to eliminate operational bottlenecks, standardize cross-functional communication, and ensure 100% data integrity in high-volume supply chain and customs environments.
+Small Python and AutoHotkey examples for invoice preparation, carrier-link navigation,
+Outlook drafting and simulated logistics analysis. These are scripts, not a deployed platform.
+No measured efficiency, accuracy or production-usage claim is made.
 
----
+## Workflow and evidence
 
-## 🚀 Core Modules
+| Module | Input → output | Limits |
+|---|---|---|
+| `candata_import/import_tool.py` | XLSX → detected header / normalized HS columns → CSV | Requires identifiable HS Code, description, quantity and total columns. Duplicate HS output columns preserve the existing format. Validate with the destination system before use. |
+| `workflow-automation/tracking_tool.py` | Colab `/content/` tracking sheet → carrier URLs | Assumes specific input column positions; carrier links may change. |
+| `workflow-automation/outlook_email_automation.ahk` | Windows hotkeys → Outlook drafting/navigation | Requires Windows/Outlook and a compatible AutoHotkey version; not verified on every environment. |
+| `logistics-compliance-analytics/data_generator.py` | Seeded simulated records → CSV | Simulation, not observed shipment performance or predictive validation. |
 
-### 1. B2B Customs Invoice ETL Pipeline (`candata_import`)
-An automated data processing pipeline built to ingest unstructured, multi-format commercial invoices and transform them into system-ready formats for customs clearance.
-* **Tech Stack:** Python, Pandas, Openpyxl
-* **Business Impact:** * Reduced manual data entry time by **90%**.
-  * Eliminated critical formatting errors (e.g., scientific notation on tracking numbers), ensuring zero delays in CBSA release submissions.
+Python/Pandas handle spreadsheet operations; NumPy generates synthetic data. The Power BI
+screenshot is an illustration: no editable PBIX/DAX model is included.
 
-### 2. Dynamic Vessel ETA Tracking Generator (`eta_tracking`)
-A routing tool that instantly generates direct, carrier-specific tracking URLs from raw container or Bill of Lading (BL) numbers.
-* **Tech Stack:** Python, Pandas
-* **Supported Carriers:** COSCO, ONE, CMA CGM, OOCL, Evergreen
-* **Business Impact:** * Bypassed the need for manual navigation through fragmented 3PL websites.
-  * Accelerated exception management and improved proactive visibility for inbound shipments.
+## Reproduce the invoice example
 
-### 3. Logistics Communications Automation (`autohotkey`)
-A workflow optimization script designed to automate repetitive Outlook email drafting, reply workflows, and inbox navigation for logistics coordinators.
-* **Tech Stack:** AutoHotkey (AHK), Outlook COM Automation
-* **Business Impact:** * Achieved a **~70% reduction** in manual email writing time.
-  * Standardized critical communications (Arrival Notices, ETA updates) across internal teams and external stakeholders.
+```bash
+python -m pip install -r requirements.txt
+python examples/create_synthetic_invoice.py
+python candata_import/import_tool.py examples/synthetic_invoice.xlsx --output examples/synthetic_output.csv
+python -m unittest discover -s tests -v
+```
 
----
+The fixture uses fictional labels and dummy codes, not customs advice or real transactions.
+Missing input/required fields fail instead of producing a successful-looking result;
+missing HS headers raise an explicit error. Review outputs before operational import.
 
-## 🧠 Strategic Value
-This repository demonstrates a core philosophy: **leveraging lightweight code to solve heavy operational pain points.** By combining Python for data transformation with AHK for workflow execution, this toolkit provides a scalable blueprint for reducing manual overhead, mitigating compliance risks, and empowering Supply Chain Planners to focus on strategic KPI optimization.
+## Publication scope
+
+An operational-looking hard-coded input identifier was replaced with a supplied path.
+Its status was uncertain; no original identifier or source invoice is needed in this example.
+The old identifier remains in earlier Git commits pending a separate publication review.
+Do not commit private input workbooks or generated operational reports. No history rewrite
+or repository visibility change has been performed.
