@@ -1,17 +1,23 @@
 import pandas as pd
-from google.colab import files
+import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description="Normalize a supplied invoice workbook to CSV.")
+parser.add_argument("input", type=Path, help="Path to an XLSX workbook; use synthetic data for public examples")
+parser.add_argument("--output", type=Path, default=Path("ready_for_candata.csv"))
+args = parser.parse_args()
 
 # ==========================================
 # 🔧 核心预处理区
 # ==========================================
 # 1. 读取原始文件（如果是 Excel，请保持 read_excel。如果是你刚上传的 csv，请换成 read_csv）
-df = pd.read_excel("InvoiceAggregate_WC0006CA20260106016353-0S_20260205142841.xlsx", header=None)
+df = pd.read_excel(args.input, header=None, dtype=str)
 
 # 2. 动态定位表头（终极防弹逻辑：无视空格、大小写和标点）
 is_header = df.apply(lambda row: row.astype(str).str.upper().str.replace(' ', '', regex=False).str.replace('.', '', regex=False).str.contains('HSCODE', regex=False).any(), axis=1)
 
 if not is_header.any():
-    print("🚨 致命报错：在整个文件里没找到带有 'HS Code' 的单元格！")
+    raise ValueError("No HS Code header found in input workbook")
 else:
     header_idx = df[is_header].index[0]
     df.columns = df.iloc[header_idx]
@@ -77,8 +83,8 @@ clean_df.insert(1, "HsCode_Copy", clean_df["HsCode"])
 clean_df.columns = ["HsCode", "HsCode", "English Commodity", "Qty(pcs)", total_col]
 
 # 导出下载
-output_filename = "ready_for_candata.csv"
+output_filename = args.output
 clean_df.to_csv(output_filename, index=False)
-files.download(output_filename)
+print(f"Wrote {output_filename}")
 
-print("✅ 完美复刻！双列 HsCode 已就位，兼容所有奇葩表头，可以无缝导入 Candata！")
+print("CSV written with duplicate HS columns; validate against destination requirements before operational use.")
